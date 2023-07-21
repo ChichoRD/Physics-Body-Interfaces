@@ -49,10 +49,22 @@ public class RigidbodyAccessor3D : MonoBehaviour, IRigidbodyAccessor
         set => _rigidbody.angularDrag = value;
     }
 
+    public bool UseGravity
+    {
+        get => _rigidbody.useGravity;
+        set => _rigidbody.useGravity = value;
+    }
+
     public bool IsKinematic
     {
         get => _rigidbody.isKinematic;
         set => _rigidbody.isKinematic = value;
+    }
+
+    public RigidbodyConstraints Constraints
+    {
+        get => _rigidbody.constraints;
+        set => _rigidbody.constraints = value;
     }
 
     public void AddForce(Vector3 force)

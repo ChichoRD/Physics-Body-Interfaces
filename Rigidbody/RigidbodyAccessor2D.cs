@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class RigidbodyAccessor2D : MonoBehaviour, IRigidbodyAccessor
 {
+    private float _gravityScale;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     public GameObject GameObject => gameObject;
 
@@ -48,10 +49,26 @@ public class RigidbodyAccessor2D : MonoBehaviour, IRigidbodyAccessor
         set => _rigidbody2D.angularDrag = value;
     }
 
+    public bool UseGravity
+    {
+        get => _rigidbody2D.gravityScale > Mathf.Epsilon;
+        set
+        {
+            _gravityScale = UseGravity ? _rigidbody2D.gravityScale : _gravityScale;
+            _rigidbody2D.gravityScale = value ? _gravityScale : 0.0f;
+        }
+    }
+
     public bool IsKinematic
     {
         get => _rigidbody2D.isKinematic;
         set => _rigidbody2D.isKinematic = value;
+    }
+
+    public RigidbodyConstraints Constraints
+    {
+        get => RigidbodyAcessorExtensions.ToRigidbodyConstraints3D(_rigidbody2D.constraints);
+        set => _rigidbody2D.constraints = RigidbodyAcessorExtensions.ToRigidbodyContraints2D(value);
     }
 
     public void AddForce(Vector3 force)

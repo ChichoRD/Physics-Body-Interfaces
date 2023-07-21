@@ -14,7 +14,9 @@ public interface IRigidbodyAccessor
     float Drag { get; set; }
     float AngularDrag { get; set; }
 
+    bool UseGravity { get; set; }
     bool IsKinematic { get; set; }
+    RigidbodyConstraints Constraints { get; set; }
 
     void AddForce(Vector3 force);
     void AddForceAtPosition(Vector3 force, Vector3 position);

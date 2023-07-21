@@ -41,4 +41,37 @@ public static class RigidbodyAcessorExtensions
     {
         rigidbodyAccessor.AddForce(rigidbodyAccessor.Mass * velocity / Time.fixedDeltaTime);
     }
+
+    public static RigidbodyConstraints ToRigidbodyConstraints3D(RigidbodyConstraints2D constraints)
+    {
+        RigidbodyConstraints rigidbodyConstraints = RigidbodyConstraints.None;
+
+        if ((constraints & RigidbodyConstraints2D.FreezePositionX) != 0)
+            rigidbodyConstraints |= RigidbodyConstraints.FreezePositionX;
+        if ((constraints & RigidbodyConstraints2D.FreezePositionY) != 0)
+            rigidbodyConstraints |= RigidbodyConstraints.FreezePositionY;
+        rigidbodyConstraints |= RigidbodyConstraints.FreezePositionZ;
+
+        rigidbodyConstraints |= RigidbodyConstraints.FreezeRotationX;
+        rigidbodyConstraints |= RigidbodyConstraints.FreezeRotationY;
+        if ((constraints & RigidbodyConstraints2D.FreezeRotation) != 0)
+            rigidbodyConstraints |= RigidbodyConstraints.FreezeRotationZ;
+
+        return rigidbodyConstraints;
+    }
+
+    public static RigidbodyConstraints2D ToRigidbodyContraints2D(RigidbodyConstraints constraints)
+    {
+        RigidbodyConstraints2D rigidbodyConstraints = RigidbodyConstraints2D.None;
+
+        if ((constraints & RigidbodyConstraints.FreezePositionX) != 0)
+            rigidbodyConstraints |= RigidbodyConstraints2D.FreezePositionX;
+        if ((constraints & RigidbodyConstraints.FreezePositionY) != 0)
+            rigidbodyConstraints |= RigidbodyConstraints2D.FreezePositionY;
+
+        if ((constraints & RigidbodyConstraints.FreezeRotationZ) != 0)
+            rigidbodyConstraints |= RigidbodyConstraints2D.FreezeRotation;
+
+        return rigidbodyConstraints;
+    }
 }
